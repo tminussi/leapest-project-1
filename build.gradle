@@ -1,0 +1,24 @@
+group 'com.leapest'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.12.Final'
+    compile group: 'org.hibernate', name: 'hibernate-envers', version: '5.2.12.Final'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter', version: '1.5.8.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.8.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.8.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '1.5.8.RELEASE'
+    compile group: 'com.auth0', name:'java-jwt', version:'3.2.0'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'com.h2database', name: 'h2', version: '1.4.196'
+}
