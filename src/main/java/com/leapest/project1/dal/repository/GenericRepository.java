@@ -8,6 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,11 +38,15 @@ public class GenericRepository<T> {
         entityManager.merge(object);
     }
 
-    public List<T> listAll(String sql) {
+    public List<T> listAll(String field) {
         logger.info("Listing all {} objects", entityClass.getSimpleName());
-        List<T> objects = null;
-        objects = entityManager.createQuery(sql, entityClass).getResultList();
-        return objects;
+
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> query = cb.createQuery(entityClass);
+        Root<T> from = query.from(entityClass);
+        query.orderBy(cb.asc(from.get(field)));
+
+        return entityManager.createQuery(query.select(from)).getResultList();
     }
 
     @Transactional
@@ -47,13 +55,13 @@ public class GenericRepository<T> {
     }
 
     @Transactional
-    public void delete(Integer id) throws HibernateException  {
+    public void delete(Long id) throws HibernateException  {
         Optional<T> object = findOne(id);
         if(object.isPresent())
             delete(object.get());
     }
 
-    public Optional<T> findOne(Integer id) {
-        return Optional.of(entityManager.find(entityClass, id));
+    public Optional<T> findOne(Long id) {
+        return Optional.ofNullable(entityManager.find(entityClass, id));
     }
 }

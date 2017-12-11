@@ -1,6 +1,7 @@
 package com.leapest.project1.service;
 
 import com.leapest.project1.api.dto.SalesOrderDTO;
+import com.leapest.project1.dal.entity.SalesOrder;
 
 import java.util.List;
 import java.util.Optional;

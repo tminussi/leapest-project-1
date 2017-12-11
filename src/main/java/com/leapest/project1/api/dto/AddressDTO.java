@@ -1,17 +1,45 @@
 package com.leapest.project1.api.dto;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.leapest.project1.api.dto.builder.AddressDTOBuilder;
 
-public class AddressDTO implements Serializable{
+import javax.validation.constraints.NotNull;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class AddressDTO{
+    @JsonIgnore
     private String id;
+    @NotNull(message = "Type can not be null!")
     private String type;
+    @NotNull(message = "Firstname can not be null!")
     private String firstName;
+    @NotNull(message = "Lastname can not be null!")
     private String lastName;
+    @NotNull(message = "Street can not be null!")
     private String street;
+    @NotNull(message = "State can not be null!")
     private String state;
+    @NotNull(message = "Country can not be null!")
     private String country;
+    @NotNull(message = "Email can not be null!")
     private String email;
     private String phone;
+
+    public AddressDTO() {
+    }
+
+    public AddressDTO(String id, String type, String firstName, String lastName, String street, String state, String country, String email, String phone) {
+        this.id = id;
+        this.type = type;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.street = street;
+        this.state = state;
+        this.country = country;
+        this.email = email;
+        this.phone = phone;
+    }
 
     public String getId() {
         return id;
@@ -83,5 +111,10 @@ public class AddressDTO implements Serializable{
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public static AddressDTOBuilder newBuilder()
+    {
+        return new AddressDTOBuilder();
     }
 }

@@ -1,8 +1,32 @@
 package com.leapest.project1.dal.entity;
 
+import org.hibernate.envers.Audited;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+@Audited
+@Entity
+@Table(name = "products")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Audited
+    @Column(name = "product_id")
     private Long id;
+
+    @Audited
+    @NotNull
+    @Column
     private String name;
+
+    public Product() {
+    }
+
+    public Product(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
