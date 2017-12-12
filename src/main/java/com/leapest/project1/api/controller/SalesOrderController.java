@@ -84,7 +84,7 @@ public class SalesOrderController {
     }
 
     @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity updateSalesOrder(@Valid @PathVariable("id") String id) throws InvalidIdException {
+    public ResponseEntity deleteSalesOrder(@Valid @PathVariable("id") String id) throws InvalidIdException {
         try{
             salesOrderService.delete(id);
             return ResponseEntity.ok().body(null);
