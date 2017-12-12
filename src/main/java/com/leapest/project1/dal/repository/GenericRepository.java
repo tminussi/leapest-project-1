@@ -1,6 +1,7 @@
 package com.leapest.project1.dal.repository;
 
 
+import com.leapest.project1.exception.EntityNotFoundException;
 import org.hibernate.HibernateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,10 +56,12 @@ public class GenericRepository<T> {
     }
 
     @Transactional
-    public void delete(Long id) throws HibernateException  {
+    public void delete(Long id) throws HibernateException, EntityNotFoundException {
         Optional<T> object = findOne(id);
         if(object.isPresent())
             delete(object.get());
+        else
+            throw new EntityNotFoundException(String.format("Entity of class %s with id %s not found!", entityClass, id));
     }
 
     public Optional<T> findOne(Long id) {

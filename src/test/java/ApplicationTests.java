@@ -2,11 +2,9 @@ import com.leapest.project1.Application;
         import com.leapest.project1.api.dto.AddressDTO;
 import com.leapest.project1.api.dto.SalesOrderItemDTO;
 import com.leapest.project1.config.DatabaseConfigurationTest;
-import com.leapest.project1.config.EntityInterceptorTest;
 import com.leapest.project1.dal.entity.Address;
 import com.leapest.project1.dal.entity.SalesOrderItem;
 import com.leapest.project1.dal.entity.dv.AddressType;
-import com.leapest.project1.service.SalesOrderService;
 import com.leapest.project1.service.mapper.AddressMapper;
 import com.leapest.project1.service.mapper.SalesOrderItemMapper;
 import org.junit.Test;
@@ -25,7 +23,7 @@ import static org.junit.Assert.assertNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("test")
-@SpringBootTest(classes = {DatabaseConfigurationTest.class, EntityInterceptorTest.class, Application.class})
+@SpringBootTest(classes = {DatabaseConfigurationTest.class, Application.class})
 public class ApplicationTests {
 
     Logger logger = LoggerFactory.getLogger(getClass());

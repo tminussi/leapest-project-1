@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SalesOrderDTO{
-    @JsonIgnore
     private String id;
     @NotNull(message = "Delivery address can not be null!")
     private AddressDTO deliveryAddress;
