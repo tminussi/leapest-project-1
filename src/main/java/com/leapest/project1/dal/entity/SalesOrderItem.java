@@ -4,6 +4,7 @@ import com.leapest.project1.dal.entity.dv.DeliveryStatus;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -37,6 +38,7 @@ public class SalesOrderItem {
     @Audited
     @Column
     @NotNull
+    @Digits(integer = 9, fraction = 2)
     private BigDecimal amount;
 
     @Audited

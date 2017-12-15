@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.leapest.project1.api.dto.builder.SalesOrderDTOBuilder;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -16,6 +17,7 @@ public class SalesOrderDTO{
     private AddressDTO deliveryAddress;
     @NotNull(message = "Invoice address can not be null!")
     private AddressDTO invoiceAddress;
+    @Size(min = 1)
     @NotNull(message = "Items can not be null!")
     private List<SalesOrderItemDTO> salesOrderItems;
     private String orderStatus;

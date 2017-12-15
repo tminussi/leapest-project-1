@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.leapest.project1.api.dto.builder.AddressDTOBuilder;
 import com.leapest.project1.api.dto.builder.SalesOrderItemDTOBuilder;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -21,6 +22,7 @@ public class SalesOrderItemDTO{
     @NotNull(message = "Quantity can not be null!")
     private String quantity;
     private String itemDeliveryStatus;
+    @Digits(integer = 9, fraction = 2)
     @NotNull(message = "Amount can not be null!")
     private BigDecimal amount;
 
