@@ -8,9 +8,12 @@ import com.leapest.project1.api.dto.builder.SalesOrderItemDTOBuilder;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
+
+/**
+ * Class do handle items of a Sales Order DTO Objects
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SalesOrderItemDTO{
-    @JsonIgnore
     private String id;
     @NotNull(message = "Product name can not be null!")
     private String productName;

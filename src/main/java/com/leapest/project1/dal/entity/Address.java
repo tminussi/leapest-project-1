@@ -4,6 +4,7 @@ import com.leapest.project1.dal.entity.dv.AddressType;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Audited
@@ -17,43 +18,42 @@ public class Address {
     private Long id;
 
     @Audited
-    @NotNull
-    @Column
+    @Column(length = 20)
     @Enumerated(EnumType.STRING)
     private AddressType type;
 
     @Audited
     @NotNull
-    @Column
+    @Column(length = 255)
     private String firstName;
 
     @Audited
     @NotNull
-    @Column
+    @Column(length = 255)
     private String lastName;
 
     @Audited
     @NotNull
-    @Column
+    @Column(length = 255)
     private String street;
 
     @Audited
     @NotNull
-    @Column
+    @Column(length = 255)
     private String state;
 
     @Audited
     @NotNull
-    @Column
+    @Column(length = 100)
     private String country;
 
     @Audited
     @NotNull
-    @Column
+    @Column(length = 255)
     private String email;
 
     @Audited
-    @Column
+    @Column(length = 20)
     private String phone;
 
     public Address() {

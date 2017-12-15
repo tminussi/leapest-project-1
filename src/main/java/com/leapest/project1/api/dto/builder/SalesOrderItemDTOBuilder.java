@@ -1,11 +1,13 @@
 package com.leapest.project1.api.dto.builder;
 
-import com.leapest.project1.api.dto.AddressDTO;
 import com.leapest.project1.api.dto.SalesOrderItemDTO;
 import com.leapest.project1.dal.entity.dv.DeliveryStatus;
 
 import java.math.BigDecimal;
 
+/**
+ * Class to build SalesOrderItemDTO objects
+ */
 public class SalesOrderItemDTOBuilder {
     private String id;
     private String productName;

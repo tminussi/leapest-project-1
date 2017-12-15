@@ -1,5 +1,8 @@
 package com.leapest.project1.api.dto;
 
+/**
+ * Class for show erors in controller
+ */
 public class ErrorDTO {
     private String error;
 

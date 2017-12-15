@@ -17,7 +17,7 @@ public class Product {
 
     @Audited
     @NotNull
-    @Column
+    @Column(length = 255)
     private String name;
 
     public Product() {

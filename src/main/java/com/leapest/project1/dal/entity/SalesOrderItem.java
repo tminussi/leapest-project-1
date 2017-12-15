@@ -4,6 +4,8 @@ import com.leapest.project1.dal.entity.dv.DeliveryStatus;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Audited
@@ -24,15 +26,17 @@ public class SalesOrderItem {
 
     @Audited
     @Column
+    @Min(value = 1)
     private Integer quantity;
 
     @Enumerated(EnumType.STRING)
     @Audited
-    @Column(name = "delivery_status")
+    @Column(name = "delivery_status", length = 20)
     private DeliveryStatus itemDeliveryStatus;
 
     @Audited
     @Column
+    @NotNull
     private BigDecimal amount;
 
     @Audited

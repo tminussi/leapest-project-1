@@ -1,6 +1,5 @@
 package com.leapest.project1.config;
 
-//import one.itpx.odyssey.dal.impl.EntityInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +14,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+/**
+ * Class to handle database configurations
+ */
 @Configuration
 @EnableTransactionManagement
 public class DatabaseConfiguration {
@@ -49,6 +51,10 @@ public class DatabaseConfiguration {
     @Autowired
     private LocalContainerEntityManagerFactoryBean entityManagerFactory;
 
+    /**
+     * Define the default datasource
+     * @return DataSource object
+     */
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSourceBean = new DriverManagerDataSource();
@@ -59,6 +65,13 @@ public class DatabaseConfiguration {
         return dataSourceBean;
     }
 
+    /**
+     * Define the properties of EntityManagerFactory
+     * @return LocalContainerEntityManagerFactoryBean object
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws ClassNotFoundException
+     */
     @Bean
     public LocalContainerEntityManagerFactoryBean sessionFactory()
             throws InstantiationException, IllegalAccessException,
@@ -82,6 +95,10 @@ public class DatabaseConfiguration {
 
     }
 
+    /**
+     * Define how transaction manager will works
+     * @return JpaTransactionManager object
+     */
     @Bean
     public JpaTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
@@ -90,7 +107,6 @@ public class DatabaseConfiguration {
     }
 
     @Bean
-    // TODO:read documentation
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
     }

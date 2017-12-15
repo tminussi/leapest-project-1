@@ -1,11 +1,14 @@
 package com.leapest.project1.api.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.leapest.project1.api.dto.builder.SalesOrderDTOBuilder;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+
+/**
+ * Class to handle Sales Order DTO Objects
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SalesOrderDTO{
     private String id;

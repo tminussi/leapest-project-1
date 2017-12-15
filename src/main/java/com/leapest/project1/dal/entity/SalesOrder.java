@@ -6,6 +6,7 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Audited
@@ -36,7 +37,7 @@ public class SalesOrder {
 
     @Audited
     @Enumerated(EnumType.STRING)
-    @Column(name = "order_status")
+    @Column(name = "order_status", length = 20)
     private OrderStatus orderStatus;
 
     public SalesOrder() {

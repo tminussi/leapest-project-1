@@ -1,14 +1,15 @@
 package com.leapest.project1.api.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.leapest.project1.api.dto.builder.AddressDTOBuilder;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * Class to handle Address DTO objects
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AddressDTO{
-    @JsonIgnore
     private String id;
     @NotNull(message = "Type can not be null!")
     private String type;

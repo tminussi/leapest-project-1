@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service to handle SalesOrder entities
+ */
 @Service
 public class SalesOrderServiceImpl implements SalesOrderService {
 
@@ -32,6 +35,11 @@ public class SalesOrderServiceImpl implements SalesOrderService {
     @Autowired
     private ProductService productService;
 
+    /**
+     * Save a SalesOrderDTO on database as a SalesOrder entity
+     * @param salesOrderDTO
+     * @return SalesOrderDTO object
+     */
     @Override
     public SalesOrderDTO save(SalesOrderDTO salesOrderDTO) {
         SalesOrder salesOrder = SalesOrderMapper.makeSalesOrder(salesOrderDTO);
@@ -53,35 +61,62 @@ public class SalesOrderServiceImpl implements SalesOrderService {
         }
     }
 
+    /**
+     * Update a SalesOrder entity
+     * @param id
+     * @param deliveryAddress
+     * @return SalesOrderDTO object
+     * @throws EntityNotFoundException
+     * @throws InvalidIdException
+     */
     @Override
-    public void update(String id, AddressDTO deliveryAddress) throws EntityNotFoundException, InvalidIdException {
+    public SalesOrderDTO update(String id, AddressDTO deliveryAddress) throws EntityNotFoundException, InvalidIdException {
         validateId(id);
-        Optional<SalesOrder> salesOrder = salesOrderRepository.findOne(Long.valueOf(id));
-        if(salesOrder.isPresent()){
-            salesOrder.get().setDeliveryAddress(AddressMapper.makeAddress(deliveryAddress));
-            salesOrderRepository.update(salesOrder.get());
-        }else
-            throw new EntityNotFoundException("Could not find sales order with id "+id);
+        Optional<SalesOrder> salesOrderOpt = salesOrderRepository.findOne(Long.valueOf(id));
+        if (salesOrderOpt.isPresent()) {
+            SalesOrder salesOrder = salesOrderOpt.get();
+            salesOrder.setDeliveryAddress(AddressMapper.makeAddress(deliveryAddress));
+            salesOrderRepository.update(salesOrder);
+            return SalesOrderMapper.makeSalesOrderDTO(salesOrder);
+        } else
+            throw new EntityNotFoundException("Could not find sales order with id " + id);
     }
 
-
+    /**
+     * Delete a SalesOrder entity from database
+     * @param id
+     * @throws EntityNotFoundException
+     * @throws InvalidIdException
+     */
     @Override
     public void delete(String id) throws EntityNotFoundException, InvalidIdException {
         validateId(id);
         Optional<SalesOrder> salesOrder = salesOrderRepository.findOne(Long.valueOf(id));
-        if(salesOrder.isPresent()){
+        if (salesOrder.isPresent()) {
             salesOrderRepository.delete(Long.valueOf(id));
-        }
+        } else
+            throw new EntityNotFoundException("Could not find sales order with id " + id);
     }
 
+    /**
+     * Find all SalesOrder from database
+     * @return List of SalesOrderDTO objects
+     */
     @Override
     public List<SalesOrderDTO> findAll() {
         List<SalesOrder> list = salesOrderRepository.listAll("id");
-        if(!list.isEmpty())
+        if (!list.isEmpty())
             return SalesOrderMapper.makeSalesOrderDTOList(list);
         return new ArrayList<>();
     }
 
+    /**
+     * Find a SalesOrder entity by id
+     * @param id
+     * @return SalesOrderDTO optional object
+     * @throws EntityNotFoundException
+     * @throws InvalidIdException
+     */
     @Override
     public Optional<SalesOrderDTO> findById(String id) throws EntityNotFoundException, InvalidIdException {
         validateId(id);
@@ -89,16 +124,21 @@ public class SalesOrderServiceImpl implements SalesOrderService {
         if (salesOrder.isPresent())
             return Optional.of(SalesOrderMapper.makeSalesOrderDTO(salesOrder.get()));
         else
-            throw new EntityNotFoundException("Could not find sales order with id "+id);
+            throw new EntityNotFoundException("Could not find sales order with id " + id);
 
     }
 
+    /**
+     * Validate the id passed by parameter
+     * @param id
+     * @throws InvalidIdException
+     */
     private void validateId(String id) throws InvalidIdException {
         try {
             Long value = Long.valueOf(id);
             if (value == null || value == 0L)
                 throw new InvalidIdException("Invalid id passed by parameter/url");
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new InvalidIdException("The id is invalid! Please, remove any field that ins`t a number from the request");
         }
     }

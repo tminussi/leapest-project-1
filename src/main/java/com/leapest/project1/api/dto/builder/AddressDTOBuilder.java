@@ -3,6 +3,9 @@ package com.leapest.project1.api.dto.builder;
 import com.leapest.project1.api.dto.AddressDTO;
 import com.leapest.project1.dal.entity.dv.AddressType;
 
+/**
+ * Class to build AddressDTO objects
+ */
 public class AddressDTOBuilder {
     private String id;
     private String type;

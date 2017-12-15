@@ -16,6 +16,11 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Generic repository with default methods to handle data on database
+ * @author Diego Antonelli
+ * @param <T>
+ */
 public class GenericRepository<T> {
 
     private Class<T> entityClass;
@@ -27,18 +32,31 @@ public class GenericRepository<T> {
         this.entityClass = entityClass;
     }
 
+    /**
+     * Save an object on database
+     * @param object
+     */
     @Transactional
     public void save(T object) throws HibernateException {
         logger.info("Saving {} object", entityClass.getSimpleName());
         entityManager.persist(object);
     }
 
+    /**
+     * Update an object on database
+     * @param object
+     */
     @Transactional
     public void update(T object) throws HibernateException  {
         logger.info("Updating {} object", entityClass.getSimpleName());
         entityManager.merge(object);
     }
 
+    /**
+     * List all objects from database with sort field
+     * @param field
+     * @return List of objects
+     */
     public List<T> listAll(String field) {
         logger.info("Listing all {} objects", entityClass.getSimpleName());
 
@@ -50,11 +68,22 @@ public class GenericRepository<T> {
         return entityManager.createQuery(query.select(from)).getResultList();
     }
 
+    /**
+     * Delete an object from database
+     * @param object
+     * @throws HibernateException
+     */
     @Transactional
     public void delete(T object) throws HibernateException  {
         entityManager.remove(object);
     }
 
+    /**
+     * Delete an object from database by id
+     * @param id
+     * @throws HibernateException
+     * @throws EntityNotFoundException
+     */
     @Transactional
     public void delete(Long id) throws HibernateException, EntityNotFoundException {
         Optional<T> object = findOne(id);
@@ -64,6 +93,11 @@ public class GenericRepository<T> {
             throw new EntityNotFoundException(String.format("Entity of class %s with id %s not found!", entityClass, id));
     }
 
+    /**
+     * Find an object by id
+     * @param id
+     * @return Optional object
+     */
     public Optional<T> findOne(Long id) {
         return Optional.ofNullable(entityManager.find(entityClass, id));
     }

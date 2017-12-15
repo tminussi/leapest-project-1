@@ -7,6 +7,9 @@ import com.leapest.project1.api.dto.SalesOrderItemDTO;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+/**
+ * Class to build Sales Order DTO objects
+ */
 public class SalesOrderDTOBuilder {
     private String id;
     private AddressDTO deliveryAddress;
